@@ -27,7 +27,7 @@ public class CodeGenerator {
         GlobalConfig gc = new GlobalConfig();
         String projectPath = System.getProperty("user.dir");
         gc.setOutputDir(projectPath + "/src/main/java");
-        gc.setAuthor("Helen");
+        gc.setAuthor("Chen");
         gc.setOpen(false); //生成后是否打开资源管理器
         gc.setServiceName("%sService");    //去掉Service接口的首字母I
         gc.setIdType(IdType.AUTO); //主键策略
@@ -36,7 +36,7 @@ public class CodeGenerator {
 
         // 3、数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:mysql://39.96.30.173:3306/mybatisplus?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai");
+        dsc.setUrl("jdbc:mysql://39.96.30.173:3306/srb_core?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai");
         dsc.setDriverName("com.mysql.cj.jdbc.Driver");
         dsc.setUsername("root");
         dsc.setPassword("root");
