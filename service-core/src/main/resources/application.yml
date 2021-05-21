@@ -1,0 +1,19 @@
+server:
+  port: 8110
+
+spring:
+  profiles:
+    active: dev
+  application:
+    name: service-core
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://39.96.30.173:3306/mybatisplus?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: root
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations: classpath:com/atguigu/srb/core/mapper/xml/*.xml
