@@ -29,9 +29,9 @@ public class AdminIntegralGradeController {
         return integralGradeService.list();
     }
 
-    @ApiParam(value = "数据id", required = true, example = "100")
+    @ApiOperation(value = "根据id删除积分等级", notes = "逻辑删除")
     @DeleteMapping("/remove/{id}")
-    public boolean removeById(@PathVariable Long id) {
+    public boolean removeById(@PathVariable @ApiParam(value = "数据id", required = true, example = "100") Long id) {
         return integralGradeService.removeById(id);
     }
 }
