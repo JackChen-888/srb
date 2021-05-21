@@ -1,5 +1,6 @@
 package com.atguigu.srb.core.controller.admin;
 
+import com.atguigu.common.result.R;
 import com.atguigu.srb.core.pojo.entity.IntegralGrade;
 import com.atguigu.srb.core.service.IntegralGradeService;
 import io.swagger.annotations.Api;
@@ -25,13 +26,21 @@ public class AdminIntegralGradeController {
 
     @ApiOperation("积分等级列表")
     @GetMapping("/list")
-    public List<IntegralGrade> listAll() {
-        return integralGradeService.list();
+    public R listAll() {
+        List<IntegralGrade> list = integralGradeService.list();
+        return R.ok().data("list", list);
     }
 
     @ApiOperation(value = "根据id删除积分等级", notes = "逻辑删除")
     @DeleteMapping("/remove/{id}")
-    public boolean removeById(@PathVariable @ApiParam(value = "数据id", required = true, example = "100") Long id) {
-        return integralGradeService.removeById(id);
+    public R removeById(
+            @ApiParam(value = "数据id", required = true, example = "1")
+            @PathVariable Long id) {
+        boolean result = integralGradeService.removeById(id);
+        if (result) {
+            return R.ok().message("删除成功");
+        } else {
+            return R.error().message("删除失败");
+        }
     }
 }
