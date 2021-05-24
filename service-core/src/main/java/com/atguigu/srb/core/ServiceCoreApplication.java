@@ -11,7 +11,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  */
 @EnableSwagger2
 @SpringBootApplication
-@ComponentScan({"com.atguigu.srb"})
+@ComponentScan({"com.atguigu.srb", "com.atguigu.common"})
 public class ServiceCoreApplication {
 
     public static void main(String[] args) {
