@@ -18,8 +18,13 @@ public enum ResponseEnum {
     ERROR(- 1, "服务器内部错误"),
     ;
 
-    // 响应状态码
+    /**
+     * 响应状态码
+     */
     private Integer code;
-    // 响应信息
+
+    /**
+     * 响应信息
+     */
     private String message;
 }
