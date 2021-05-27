@@ -24,8 +24,8 @@ spring:
 #阿里云短信
 aliyun:
   sms:
-    region-id: cn-hangzhou
-    key-id: 你的keyid
-    key-secret: 你的keysecret
+    region-id: cn-beijing
+    key-id: LTAI5tQNXFdkFgMTEBLREyYX
+    key-secret: dOp8p34Qnz2Wk1fk0j0n69QVDd1uEu
     template-code: 你的短信模板code
     sign-name: 你的短信模板签名
