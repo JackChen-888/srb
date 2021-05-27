@@ -21,7 +21,6 @@ public class Swagger2Config {
 
     @Bean
     public Docket adminApiConfig() {
-
         return new Docket(DocumentationType.SWAGGER_2)
                 .groupName("adminApi")
                 .apiInfo(adminApiInfo())
@@ -32,11 +31,32 @@ public class Swagger2Config {
 
     }
 
-    private ApiInfo adminApiInfo() {
+    @Bean
+    public Docket apiConfig() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .groupName("api")
+                .apiInfo(apiInfo())
+                .select()
+                //只显示admin路径下的页面
+                .paths(Predicates.and(PathSelectors.regex("/api/.*")))
+                .build();
 
+    }
+
+    private ApiInfo adminApiInfo() {
         return new ApiInfoBuilder()
                 .title("尚融宝后台管理系统-API文档")
                 .description("本文档描述了尚融宝后台管理系统接口")
+                .version("1.0")
+                .contact(new Contact("Chen", "https://github.com/JackChen-888", "liuchen525@126.com"))
+                .build();
+    }
+
+    private ApiInfo apiInfo() {
+
+        return new ApiInfoBuilder()
+                .title("尚融宝-API文档")
+                .description("本文档描述了尚融宝接口")
                 .version("1.0")
                 .contact(new Contact("Chen", "https://github.com/JackChen-888", "liuchen525@126.com"))
                 .build();
