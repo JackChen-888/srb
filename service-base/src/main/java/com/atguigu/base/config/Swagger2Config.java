@@ -38,7 +38,7 @@ public class Swagger2Config {
                 .title("尚融宝后台管理系统-API文档")
                 .description("本文档描述了尚融宝后台管理系统接口")
                 .version("1.0")
-                .contact(new Contact("Chen", "https://github.com/JackChen-888", "liuchen@126.com"))
+                .contact(new Contact("Chen", "https://github.com/JackChen-888", "liuchen525@126.com"))
                 .build();
     }
 }
