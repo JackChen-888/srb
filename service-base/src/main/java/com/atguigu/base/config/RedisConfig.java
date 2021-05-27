@@ -1,4 +1,4 @@
-package com.atguigu.src.base.config;
+package com.atguigu.base.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
