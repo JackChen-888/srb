@@ -60,9 +60,8 @@ public class UserInfoController {
         //校验验证码
         String codeGen = (String) redisTemplate.opsForValue().get("srb:sms:code:" + mobile);
         //CODE_ERROR(-206, "验证码不正确"),
-        Assert.equals(code, codeGen, ResponseEnum.CODE_ERROR);
+        //Assert.equals(code, codeGen, ResponseEnum.CODE_ERROR);
 
-        //注册
         userInfoService.register(registerVO);
         return R.ok().message("注册成功");
     }

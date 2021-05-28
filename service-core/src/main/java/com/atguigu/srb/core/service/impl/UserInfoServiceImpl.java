@@ -55,7 +55,7 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
         userInfo.setPassword(Md5.encrypt(registerVO.getPassword()));
         userInfo.setStatus(UserInfo.STATUS_NORMAL);
         //设置一张静态资源服务器上的头像图片
-        userInfo.setHeadImg("https://srb-chenfile.oss-cn-beijing.aliyuncs.com/avatar/%E6%B3%B0%E5%93%A5.png?Expires=1622103398&OSSAccessKeyId=TMP.3KdDUH3rUENqjYKESC4b7jPnafVGxUHPRSaKfeUcsdKdn5LpUdR4tGLSoLHifPgFYHDHTknsnmUHTymCg8oFH59kEpspyH&Signature=XkUPTEL2tPCZw%2BnllxJYr7jHcC8%3D&versionId=null&response-content-type=application%2Foctet-stream");
+        userInfo.setHeadImg("https://img1.baidu.com/it/u=237300884,987728375&fm=26&fmt=auto&gp=0.jpg");
         baseMapper.insert(userInfo);
 
         //创建会员账户
