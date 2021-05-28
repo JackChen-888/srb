@@ -17,7 +17,6 @@ import java.util.List;
  * @author: chen
  * @date: 2021年05月21日 17:35
  */
-@CrossOrigin
 @RestController
 @RequestMapping("/admin/core/integralGrade")
 @Api(tags = "积分等级管理")

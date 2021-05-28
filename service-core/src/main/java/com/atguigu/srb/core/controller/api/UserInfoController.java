@@ -31,7 +31,6 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 @RequestMapping("/api/core/userInfo")
 @Slf4j
-@CrossOrigin
 public class UserInfoController {
 
     @Resource
