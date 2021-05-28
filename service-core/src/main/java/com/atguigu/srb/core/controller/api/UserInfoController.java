@@ -66,6 +66,12 @@ public class UserInfoController {
         return R.ok().message("注册成功");
     }
 
+    @ApiOperation("校验手机号是否注册")
+    @GetMapping("/checkMobile/{mobile}")
+    public boolean checkMobile(@PathVariable String mobile){
+        return userInfoService.checkMobile(mobile);
+    }
+
     @ApiOperation("会员登录")
     @PostMapping("/login")
     public R login(@RequestBody LoginVO loginVO, HttpServletRequest request) {
