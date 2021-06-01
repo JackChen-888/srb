@@ -65,8 +65,8 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements Di
         //先查询redis中是否存在数据列表
         List<Dict> dictList = null;
         try {
-            dictList = (List<Dict>)redisTemplate.opsForValue().get("srb:core:dictList:" + parentId);
-            if(dictList != null){
+            dictList = (List<Dict>) redisTemplate.opsForValue().get("srb:core:dictList:" + parentId);
+            if (dictList != null) {
                 log.info("从redis中取值");
                 return dictList;
             }
@@ -92,6 +92,14 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements Di
             log.error("redis服务器异常：" + ExceptionUtils.getStackTrace(e));
         }
         return dictList;
+    }
+
+    @Override
+    public List<Dict> findByDictCode(String dictCode) {
+        QueryWrapper<Dict> dictQueryWrapper = new QueryWrapper<>();
+        dictQueryWrapper.eq("dict_code", dictCode);
+        Dict dict = baseMapper.selectOne(dictQueryWrapper);
+        return this.listByParentId(dict.getId());
     }
 
     /**
