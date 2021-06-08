@@ -8,7 +8,7 @@ import lombok.Data;
 import java.util.List;
 
 /**
- * @Description: TODO
+ * @Description: 借款人认证信息
  * @author: chen
  * @date: 2021年05月31日 15:09
  */
