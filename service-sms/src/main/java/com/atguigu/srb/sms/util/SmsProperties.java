@@ -33,7 +33,7 @@ public class SmsProperties implements InitializingBean {
     /**
      * 当私有成员被赋值后，此方法自动被调用，从而初始化常量
      *
-     * @throws Exception
+     * @throws Exception /
      */
     @Override
     public void afterPropertiesSet() throws Exception {

@@ -28,7 +28,6 @@ public class Swagger2Config {
                 //只显示admin路径下的页面
 //                .paths(Predicates.and(PathSelectors.regex("/admin/.*")))
                 .build();
-
     }
 
     @Bean
@@ -40,7 +39,6 @@ public class Swagger2Config {
                 //只显示admin路径下的页面
                 .paths(Predicates.and(PathSelectors.regex("/api/.*")))
                 .build();
-
     }
 
     private ApiInfo adminApiInfo() {
@@ -53,7 +51,6 @@ public class Swagger2Config {
     }
 
     private ApiInfo apiInfo() {
-
         return new ApiInfoBuilder()
                 .title("尚融宝-API文档")
                 .description("本文档描述了尚融宝接口")

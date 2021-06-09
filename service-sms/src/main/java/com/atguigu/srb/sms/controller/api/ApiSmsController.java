@@ -35,7 +35,7 @@ public class ApiSmsController {
     private SmsService smsService;
 
     @Resource
-    private RedisTemplate redisTemplate;
+    private RedisTemplate<String, String> redisTemplate;
 
     @Resource
     private CoreUserInfoClient coreUserInfoClient;
@@ -54,7 +54,7 @@ public class ApiSmsController {
         //手机号是否注册
         boolean result = coreUserInfoClient.checkMobile(mobile);
         System.out.println("result = " + result);
-        Assert.isTrue(result == false, ResponseEnum.MOBILE_EXIST_ERROR);
+        Assert.isTrue(! result, ResponseEnum.MOBILE_EXIST_ERROR);
 
         //生成验证码
         String code = RandomUtils.getFourBitRandom();
