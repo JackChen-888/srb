@@ -46,12 +46,10 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements Di
 
     @Override
     public List<ExcelDictDTO> listDictData() {
-
         List<Dict> dictList = baseMapper.selectList(null);
         //创建ExcelDictDTO列表，将Dict列表转换成ExcelDictDTO列表
         ArrayList<ExcelDictDTO> excelDictDTOList = new ArrayList<>(dictList.size());
         dictList.forEach(dict -> {
-
             ExcelDictDTO excelDictDTO = new ExcelDictDTO();
             BeanUtils.copyProperties(dict, excelDictDTO);
             excelDictDTOList.add(excelDictDTO);

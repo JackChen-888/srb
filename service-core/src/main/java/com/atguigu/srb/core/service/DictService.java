@@ -20,23 +20,30 @@ public interface DictService extends IService<Dict> {
     /**
      * 批量导入
      *
-     * @param inputStream
+     * @param inputStream /
      */
     void importData(InputStream inputStream);
 
     /**
      * 批量导出
      *
-     * @return
+     * @return /
      */
     List<ExcelDictDTO> listDictData();
 
     /**
      * 查询列表
      *
-     * @return
+     * @param parentId /
+     * @return /
      */
     List<Dict> listByParentId(Long parentId);
 
+    /**
+     * 根据dictCode获取下级节点
+     *
+     * @param dictCode /
+     * @return /
+     */
     List<Dict> findByDictCode(String dictCode);
 }

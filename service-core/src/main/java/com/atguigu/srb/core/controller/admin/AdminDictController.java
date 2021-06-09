@@ -53,7 +53,6 @@ public class AdminDictController {
     @ApiOperation("Excel数据的导出")
     @GetMapping("/export")
     public void export(HttpServletResponse response) {
-
         try {
             // 这里注意 有同学反应使用swagger 会导致各种问题，请直接用浏览器或者用postman
             response.setContentType("application/vnd.ms-excel");
@@ -62,7 +61,6 @@ public class AdminDictController {
             String fileName = URLEncoder.encode("MyDict", "UTF-8").replaceAll("\\+", "%20");
             response.setHeader("Content-disposition", "attachment;filename*=utf-8''" + fileName + ".xlsx");
             EasyExcel.write(response.getOutputStream(), ExcelDictDTO.class).sheet("数据字典").doWrite(dictService.listDictData());
-
         } catch (IOException e) {
             //EXPORT_DATA_ERROR(104, "数据导出失败"),
             throw new BusinessException(ResponseEnum.EXPORT_DATA_ERROR, e);
