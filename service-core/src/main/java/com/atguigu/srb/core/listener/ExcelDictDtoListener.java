@@ -23,7 +23,7 @@ public class ExcelDictDtoListener extends AnalysisEventListener<ExcelDictDTO> {
      * 每隔5条存储数据库，实际使用中可以3000条，然后清理list ，方便内存回收
      */
     private static final int BATCH_COUNT = 5;
-    List<ExcelDictDTO> list = new ArrayList();
+    List<ExcelDictDTO> list = new ArrayList<>();
 
     private DictMapper dictMapper;
 
@@ -34,8 +34,8 @@ public class ExcelDictDtoListener extends AnalysisEventListener<ExcelDictDTO> {
     /**
      * 遍历每一行的记录
      *
-     * @param data
-     * @param context
+     * @param data /
+     * @param context /
      */
     @Override
     public void invoke(ExcelDictDTO data, AnalysisContext context) {

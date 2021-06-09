@@ -34,7 +34,7 @@ import java.util.concurrent.TimeUnit;
 public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements DictService {
 
     @Resource
-    private RedisTemplate redisTemplate;
+    private RedisTemplate<String, List<Dict>> redisTemplate;
 
     @Transactional(rollbackFor = {Exception.class})
     @Override
@@ -63,9 +63,9 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements Di
     public List<Dict> listByParentId(Long parentId) {
 
         //先查询redis中是否存在数据列表
-        List<Dict> dictList = null;
+        List<Dict> dictList;
         try {
-            dictList = (List<Dict>) redisTemplate.opsForValue().get("srb:core:dictList:" + parentId);
+            dictList = redisTemplate.opsForValue().get("srb:core:dictList:" + parentId);
             if (dictList != null) {
                 log.info("从redis中取值");
                 return dictList;
@@ -108,9 +108,6 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements Di
     private boolean hasChildren(Long id) {
         QueryWrapper<Dict> queryWrapper = new QueryWrapper<Dict>().eq("parent_id", id);
         Integer count = baseMapper.selectCount(queryWrapper);
-        if (count.intValue() > 0) {
-            return true;
-        }
-        return false;
+        return count > 0;
     }
 }

@@ -19,7 +19,7 @@ public interface DictMapper extends BaseMapper<Dict> {
     /**
      * 批量导入
      *
-     * @param list
+     * @param list /
      */
     void insertBatch(List<ExcelDictDTO> list);
 }
