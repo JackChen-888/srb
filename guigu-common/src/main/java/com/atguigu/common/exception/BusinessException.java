@@ -2,6 +2,7 @@ package com.atguigu.common.exception;
 
 import com.atguigu.common.result.ResponseEnum;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 /**
@@ -9,6 +10,7 @@ import lombok.NoArgsConstructor;
  * @author: chen
  * @date: 2021年05月24日 10:16
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
 public class BusinessException extends RuntimeException {
