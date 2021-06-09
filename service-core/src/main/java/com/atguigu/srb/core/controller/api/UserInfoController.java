@@ -58,6 +58,7 @@ public class UserInfoController {
 
         //校验验证码
         String codeGen = redisTemplate.opsForValue().get("srb:sms:code:" + mobile);
+        System.out.println(codeGen);
 //        Assert.equals(code, codeGen, CODE_ERROR);
 
         userInfoService.register(registerVO);
