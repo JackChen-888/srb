@@ -17,7 +17,7 @@ public class R {
 
     private String message;
 
-    private Map<String, Object> data = new HashMap();
+    private Map<String, Object> data = new HashMap<>(16);
 
     /**
      * 构造器私有

@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.ToString;
 
 /**
- * @Description:
+ * @Description: 统一返回结果
  * @author: chen
  * @date: 2021年05月21日 18:08
  */
@@ -67,9 +67,9 @@ public enum ResponseEnum {
     /**
      * 状态码
      */
-    private Integer code;
+    private final Integer code;
     /**
      * 消息
      */
-    private String message;
+    private final String message;
 }
