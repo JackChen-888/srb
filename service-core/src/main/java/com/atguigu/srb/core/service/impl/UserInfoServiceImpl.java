@@ -42,7 +42,6 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
     @Transactional(rollbackFor = {Exception.class})
     @Override
     public void register(RegisterVO registerVO) {
-
         //判断用户是否被注册
         QueryWrapper<UserInfo> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("mobile", registerVO.getMobile());
@@ -121,10 +120,6 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
         Integer status = userInfoQuery.getStatus();
         Integer userType = userInfoQuery.getUserType();
         QueryWrapper<UserInfo> userInfoQueryWrapper = new QueryWrapper<>();
-
-        if (userInfoQuery == null) {
-            return baseMapper.selectPage(pageParam, null);
-        }
 
         userInfoQueryWrapper
                 .eq(StringUtils.isNotBlank(mobile), "mobile", mobile)

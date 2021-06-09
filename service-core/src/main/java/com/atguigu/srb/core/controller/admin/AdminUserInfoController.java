@@ -36,7 +36,7 @@ public class AdminUserInfoController {
             @ApiParam(value = "每页记录数", required = true)
             @PathVariable Long limit,
 
-            @ApiParam(value = "查询对象", required = false)
+            @ApiParam(value = "查询对象")
                     UserInfoQuery userInfoQuery) {
         Page<UserInfo> pageParam = new Page<>(page, limit);
         IPage<UserInfo> pageModel = userInfoService.listPage(pageParam, userInfoQuery);
@@ -50,9 +50,9 @@ public class AdminUserInfoController {
             @PathVariable("id") Long id,
 
             @ApiParam(value = "锁定状态（0：锁定 1：解锁）", required = true)
-            @PathVariable("status") Integer status){
+            @PathVariable("status") Integer status) {
 
         userInfoService.lock(id, status);
-        return R.ok().message(status==1?"解锁成功":"锁定成功");
+        return R.ok().message(status == 1 ? "解锁成功" : "锁定成功");
     }
 }

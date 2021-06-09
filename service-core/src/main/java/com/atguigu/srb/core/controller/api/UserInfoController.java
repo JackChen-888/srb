@@ -37,7 +37,7 @@ public class UserInfoController {
     private UserInfoService userInfoService;
 
     @Resource
-    private RedisTemplate redisTemplate;
+    private RedisTemplate<String, String> redisTemplate;
 
     @ApiOperation("会员注册")
     @PostMapping("/register")
@@ -57,9 +57,8 @@ public class UserInfoController {
         Assert.notEmpty(code, ResponseEnum.CODE_NULL_ERROR);
 
         //校验验证码
-        String codeGen = (String) redisTemplate.opsForValue().get("srb:sms:code:" + mobile);
-        //CODE_ERROR(-206, "验证码不正确"),
-        //Assert.equals(code, codeGen, ResponseEnum.CODE_ERROR);
+        String codeGen = redisTemplate.opsForValue().get("srb:sms:code:" + mobile);
+//        Assert.equals(code, codeGen, CODE_ERROR);
 
         userInfoService.register(registerVO);
         return R.ok().message("注册成功");
@@ -67,7 +66,7 @@ public class UserInfoController {
 
     @ApiOperation("校验手机号是否注册")
     @GetMapping("/checkMobile/{mobile}")
-    public boolean checkMobile(@PathVariable String mobile){
+    public boolean checkMobile(@PathVariable String mobile) {
         return userInfoService.checkMobile(mobile);
     }
 
