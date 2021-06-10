@@ -5,6 +5,7 @@ import java.util.regex.Pattern;
 
 /**
  * 使用正则表达式进行表单验证
+ * @author Chen
  */
 public class RegexValidateUtils {
 

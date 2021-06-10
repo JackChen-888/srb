@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
 /**
  * @author Chen
@@ -14,15 +15,15 @@ public final class HttpUtils {
 
     static final String POST = "POST";
     static final String GET = "GET";
-    static final int CONN_TIMEOUT = 30000;// ms
-    static final int READ_TIMEOUT = 30000;// ms
+    static final int CONN_TIMEOUT = 30000;
+    static final int READ_TIMEOUT = 30000;
 
     /**
      * post 方式发送http请求.
      *
-     * @param strUrl
-     * @param reqData
-     * @return
+     * @param strUrl  /
+     * @param reqData /
+     * @return /
      */
     public static byte[] doPost(String strUrl, byte[] reqData) {
         return send(strUrl, POST, reqData);
@@ -31,18 +32,18 @@ public final class HttpUtils {
     /**
      * get方式发送http请求.
      *
-     * @param strUrl
-     * @return
+     * @param strUrl /
+     * @return /
      */
     public static byte[] doGet(String strUrl) {
         return send(strUrl, GET, null);
     }
 
     /**
-     * @param strUrl
-     * @param reqmethod
-     * @param reqData
-     * @return
+     * @param strUrl    /
+     * @param reqmethod /
+     * @param reqData   /
+     * @return /
      */
     public static byte[] send(String strUrl, String reqmethod, byte[] reqData) {
         try {
@@ -62,7 +63,7 @@ public final class HttpUtils {
                 os.flush();
                 os.close();
             }
-            BufferedReader in = new BufferedReader(new InputStreamReader(httpcon.getInputStream(), "utf-8"));
+            BufferedReader in = new BufferedReader(new InputStreamReader(httpcon.getInputStream(), StandardCharsets.UTF_8));
             String inputLine;
             StringBuilder bankXmlBuffer = new StringBuilder();
             while ((inputLine = in.readLine()) != null) {
@@ -80,18 +81,18 @@ public final class HttpUtils {
     /**
      * 从输入流中读取数据
      *
-     * @param inStream
-     * @return
-     * @throws Exception
+     * @param inStream /
+     * @return /
+     * @throws Exception /
      */
     public static byte[] readInputStream(InputStream inStream) throws Exception {
         ByteArrayOutputStream outStream = new ByteArrayOutputStream();
         byte[] buffer = new byte[1024];
-        int len = 0;
+        int len;
         while ((len = inStream.read(buffer)) != - 1) {
             outStream.write(buffer, 0, len);
         }
-        byte[] data = outStream.toByteArray();// 网页的二进制数据
+        byte[] data = outStream.toByteArray();
         outStream.close();
         inStream.close();
         return data;
