@@ -15,5 +15,11 @@ import java.util.List;
  */
 public interface UserLoginRecordService extends IService<UserLoginRecord> {
 
+    /**
+     * 获取会员登录日志列表
+     *
+     * @param userId /
+     * @return /
+     */
     List<UserLoginRecord> listTop50(Long userId);
 }

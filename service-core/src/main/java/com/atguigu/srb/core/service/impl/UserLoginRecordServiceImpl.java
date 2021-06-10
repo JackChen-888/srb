@@ -27,7 +27,6 @@ public class UserLoginRecordServiceImpl extends ServiceImpl<UserLoginRecordMappe
                 .eq("user_id", userId)
                 .orderByDesc("id")
                 .last("limit 50");
-        List<UserLoginRecord> userLoginRecords = baseMapper.selectList(userLoginRecordQueryWrapper);
-        return userLoginRecords;
+        return baseMapper.selectList(userLoginRecordQueryWrapper);
     }
 }

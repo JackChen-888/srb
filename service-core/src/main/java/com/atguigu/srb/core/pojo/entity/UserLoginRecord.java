@@ -47,6 +47,4 @@ public class UserLoginRecord implements Serializable {
     @TableField("is_deleted")
     @TableLogic
     private Boolean deleted;
-
-
 }
