@@ -10,6 +10,9 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public enum TransTypeEnum {
+    /**
+     *
+     */
     RECHARGE(1, "充值"),
     INVEST_LOCK(2, "投标锁定"),
     INVEST_UNLOCK(3, "放款解锁"),
@@ -20,17 +23,16 @@ public enum TransTypeEnum {
     WITHDRAW(8, "提现"),
     ;
 
-    private Integer transType;
-    private String transTypeName;
+    private final Integer transType;
+    private final String transTypeName;
 
 
     public static String getTransTypeName(int transType) {
         for (TransTypeEnum obj : TransTypeEnum.values()) {
-            if (transType == obj.getTransType().intValue()) {
+            if (transType == obj.getTransType()) {
                 return obj.getTransTypeName();
             }
         }
         return "";
     }
-
 }

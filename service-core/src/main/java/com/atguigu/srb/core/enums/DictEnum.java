@@ -10,7 +10,9 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public enum DictEnum {
-
+    /**
+     *
+     */
     EDUCATION("education", "学历"),
     INDUSTRY("industry", "从事行业"),
     INCOME("income", "收入来源"),
@@ -21,6 +23,6 @@ public enum DictEnum {
     MONEY_USER("moneyUse", "资金用途"),
     ;
 
-    private String dictCode;
-    private String msg;
+    private final String dictCode;
+    private final String msg;
 }

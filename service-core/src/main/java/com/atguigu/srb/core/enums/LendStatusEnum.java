@@ -11,6 +11,9 @@ import lombok.Getter;
 @Getter
 public enum LendStatusEnum {
 
+    /**
+     *
+     */
     CHECK(0, "待发布"),
     INVEST_RUN(1, "募资中"),
     PAY_RUN(2, "还款中"),
@@ -21,14 +24,14 @@ public enum LendStatusEnum {
 //    BAD_BILL(-2, "坏账"),
     ;
 
-    private Integer status;
-    private String msg;
+    private final Integer status;
+    private final String msg;
 
 
     public static String getMsgByStatus(int status) {
         LendStatusEnum[] arrObj = LendStatusEnum.values();
         for (LendStatusEnum obj : arrObj) {
-            if (status == obj.getStatus().intValue()) {
+            if (status == obj.getStatus()) {
                 return obj.getMsg();
             }
         }

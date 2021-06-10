@@ -67,7 +67,7 @@ public class UserBindServiceImpl extends ServiceImpl<UserBindMapper, UserBind> i
             baseMapper.updateById(userBind);
         }
 
-        Map<String, Object> paramMap = new HashMap<>();
+        Map<String, Object> paramMap = new HashMap<>(16);
         paramMap.put("agentId", HfbConst.AGENT_ID);
         paramMap.put("agentUserId", userId);
         paramMap.put("idCard", userBindVO.getIdCard());
@@ -81,8 +81,7 @@ public class UserBindServiceImpl extends ServiceImpl<UserBindMapper, UserBind> i
         paramMap.put("sign", RequestHelper.getSign(paramMap));
 
         //构建充值自动提交表单
-        String formStr = FormHelper.buildForm(HfbConst.USERBIND_URL, paramMap);
-        return formStr;
+        return FormHelper.buildForm(HfbConst.USERBIND_URL, paramMap);
 
     }
 
