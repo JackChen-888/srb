@@ -1,6 +1,7 @@
 package com.atguigu.srb.core.service;
 
 import com.atguigu.srb.core.pojo.entity.Borrower;
+import com.atguigu.srb.core.pojo.vo.BorrowerApprovalVO;
 import com.atguigu.srb.core.pojo.vo.BorrowerDetailVO;
 import com.atguigu.srb.core.pojo.vo.BorrowerVO;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -49,4 +50,11 @@ public interface BorrowerService extends IService<Borrower> {
      * @return /
      */
     BorrowerDetailVO getBorrowerDetailVoById(Long id);
+
+    /**
+     * 借款额度审批
+     *
+     * @param borrowerApprovalVO /
+     */
+    void approval(BorrowerApprovalVO borrowerApprovalVO);
 }

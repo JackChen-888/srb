@@ -1,12 +1,16 @@
 package com.atguigu.srb.core.service.impl;
 
 import com.atguigu.srb.core.enums.BorrowerStatusEnum;
+import com.atguigu.srb.core.enums.IntegralEnum;
 import com.atguigu.srb.core.mapper.BorrowerAttachMapper;
 import com.atguigu.srb.core.mapper.BorrowerMapper;
 import com.atguigu.srb.core.mapper.UserInfoMapper;
+import com.atguigu.srb.core.mapper.UserIntegralMapper;
 import com.atguigu.srb.core.pojo.entity.Borrower;
 import com.atguigu.srb.core.pojo.entity.BorrowerAttach;
 import com.atguigu.srb.core.pojo.entity.UserInfo;
+import com.atguigu.srb.core.pojo.entity.UserIntegral;
+import com.atguigu.srb.core.pojo.vo.BorrowerApprovalVO;
 import com.atguigu.srb.core.pojo.vo.BorrowerAttachVO;
 import com.atguigu.srb.core.pojo.vo.BorrowerDetailVO;
 import com.atguigu.srb.core.pojo.vo.BorrowerVO;
@@ -47,6 +51,9 @@ public class BorrowerServiceImpl extends ServiceImpl<BorrowerMapper, Borrower> i
 
     @Resource
     private BorrowerAttachService borrowerAttachService;
+
+    @Resource
+    private UserIntegralMapper userIntegralMapper;
 
     @Transactional(rollbackFor = Exception.class)
     @Override
@@ -142,5 +149,57 @@ public class BorrowerServiceImpl extends ServiceImpl<BorrowerMapper, Borrower> i
         borrowerDetailVO.setBorrowerAttachVOList(borrowerAttachVOList);
 
         return borrowerDetailVO;
+    }
+
+    @Override
+    public void approval(BorrowerApprovalVO borrowerApprovalVO) {
+
+        //借款人认证状态
+        Long borrowerId = borrowerApprovalVO.getBorrowerId();
+        Borrower borrower = baseMapper.selectById(borrowerId);
+        borrower.setStatus(borrowerApprovalVO.getStatus());
+        baseMapper.updateById(borrower);
+
+        Long userId = borrower.getUserId();
+        UserInfo userInfo = userInfoMapper.selectById(userId);
+
+        //添加积分
+        UserIntegral userIntegral = new UserIntegral();
+        userIntegral.setUserId(userId);
+        userIntegral.setIntegral(borrowerApprovalVO.getInfoIntegral());
+        userIntegral.setContent("借款人基本信息");
+        userIntegralMapper.insert(userIntegral);
+
+        int curIntegral = userInfo.getIntegral() + borrowerApprovalVO.getInfoIntegral();
+        if (borrowerApprovalVO.getIsIdCardOk()) {
+            curIntegral += IntegralEnum.BORROWER_IDCARD.getIntegral();
+            userIntegral = new UserIntegral();
+            userIntegral.setUserId(userId);
+            userIntegral.setIntegral(IntegralEnum.BORROWER_IDCARD.getIntegral());
+            userIntegral.setContent(IntegralEnum.BORROWER_IDCARD.getMsg());
+            userIntegralMapper.insert(userIntegral);
+        }
+
+        if (borrowerApprovalVO.getIsHouseOk()) {
+            curIntegral += IntegralEnum.BORROWER_HOUSE.getIntegral();
+            userIntegral = new UserIntegral();
+            userIntegral.setUserId(userId);
+            userIntegral.setIntegral(IntegralEnum.BORROWER_HOUSE.getIntegral());
+            userIntegral.setContent(IntegralEnum.BORROWER_HOUSE.getMsg());
+            userIntegralMapper.insert(userIntegral);
+        }
+
+        if (borrowerApprovalVO.getIsCarOk()) {
+            curIntegral += IntegralEnum.BORROWER_CAR.getIntegral();
+            userIntegral = new UserIntegral();
+            userIntegral.setUserId(userId);
+            userIntegral.setIntegral(IntegralEnum.BORROWER_CAR.getIntegral());
+            userIntegral.setContent(IntegralEnum.BORROWER_CAR.getMsg());
+            userIntegralMapper.insert(userIntegral);
+        }
+        userInfo.setIntegral(curIntegral);
+        //修改审核状态
+        userInfo.setBorrowAuthStatus(borrowerApprovalVO.getStatus());
+        userInfoMapper.updateById(userInfo);
     }
 }
