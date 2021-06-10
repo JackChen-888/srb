@@ -35,13 +35,13 @@ public class BorrowerController {
     public R save(@RequestBody BorrowerVO borrowerVO, HttpServletRequest request) {
         String token = request.getHeader("token");
         Long userId = JwtUtils.getUserId(token);
-        borrowerService.saveBorrowerVOByUserId(borrowerVO, userId);
+        borrowerService.saveBorrowerVoByUserId(borrowerVO, userId);
         return R.ok().message("信息提交成功");
     }
 
     @ApiOperation("获取借款人认证状态")
     @GetMapping("/auth/getBorrowerStatus")
-    public R getBorrowerStatus(HttpServletRequest request){
+    public R getBorrowerStatus(HttpServletRequest request) {
         String token = request.getHeader("token");
         Long userId = JwtUtils.getUserId(token);
         Integer status = borrowerService.getStatusByUserId(userId);

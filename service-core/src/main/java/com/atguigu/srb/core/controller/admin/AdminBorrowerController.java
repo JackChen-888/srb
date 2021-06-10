@@ -2,6 +2,7 @@ package com.atguigu.srb.core.controller.admin;
 
 import com.atguigu.common.result.R;
 import com.atguigu.srb.core.pojo.entity.Borrower;
+import com.atguigu.srb.core.pojo.vo.BorrowerDetailVO;
 import com.atguigu.srb.core.service.BorrowerService;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -36,7 +37,7 @@ public class AdminBorrowerController {
             @ApiParam(value = "每页记录数", required = true)
             @PathVariable Long limit,
 
-            @ApiParam(value = "查询关键字", required = false)
+            @ApiParam(value = "查询关键字")
             @RequestParam String keyword) {
         //这里的@RequestParam其实是可以省略的，但是在目前的swagger版本中（2.9.2）不能省略，
         //否则默认将没有注解的参数解析为body中的传递的数据
@@ -44,5 +45,14 @@ public class AdminBorrowerController {
         Page<Borrower> pageParam = new Page<>(page, limit);
         IPage<Borrower> pageModel = borrowerService.listPage(pageParam, keyword);
         return R.ok().data("pageModel", pageModel);
+    }
+
+    @ApiOperation("获取借款人信息")
+    @GetMapping("/show/{id}")
+    public R show(
+            @ApiParam(value = "借款人id", required = true)
+            @PathVariable Long id) {
+        BorrowerDetailVO borrowerDetailVO = borrowerService.getBorrowerDetailVoById(id);
+        return R.ok().data("borrowerDetailVO", borrowerDetailVO);
     }
 }

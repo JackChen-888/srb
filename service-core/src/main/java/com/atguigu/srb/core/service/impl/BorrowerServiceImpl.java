@@ -7,12 +7,17 @@ import com.atguigu.srb.core.mapper.UserInfoMapper;
 import com.atguigu.srb.core.pojo.entity.Borrower;
 import com.atguigu.srb.core.pojo.entity.BorrowerAttach;
 import com.atguigu.srb.core.pojo.entity.UserInfo;
+import com.atguigu.srb.core.pojo.vo.BorrowerAttachVO;
+import com.atguigu.srb.core.pojo.vo.BorrowerDetailVO;
 import com.atguigu.srb.core.pojo.vo.BorrowerVO;
+import com.atguigu.srb.core.service.BorrowerAttachService;
 import com.atguigu.srb.core.service.BorrowerService;
+import com.atguigu.srb.core.service.DictService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,9 +42,15 @@ public class BorrowerServiceImpl extends ServiceImpl<BorrowerMapper, Borrower> i
     @Resource
     private UserInfoMapper userInfoMapper;
 
+    @Resource
+    private DictService dictService;
+
+    @Resource
+    private BorrowerAttachService borrowerAttachService;
+
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public void saveBorrowerVOByUserId(BorrowerVO borrowerVO, Long userId) {
+    public void saveBorrowerVoByUserId(BorrowerVO borrowerVO, Long userId) {
 
         UserInfo userInfo = userInfoMapper.selectById(userId);
 
@@ -77,12 +88,59 @@ public class BorrowerServiceImpl extends ServiceImpl<BorrowerMapper, Borrower> i
             //借款人尚未提交信息
             return BorrowerStatusEnum.NO_AUTH.getStatus();
         }
-        Integer status = (Integer) objects.get(0);
-        return status;
+        return (Integer) objects.get(0);
     }
 
     @Override
     public IPage<Borrower> listPage(Page<Borrower> pageParam, String keyword) {
-        return null;
+        QueryWrapper<Borrower> wrapper = new QueryWrapper<>();
+        if (StringUtils.isEmpty(keyword)) {
+            return baseMapper.selectPage(pageParam, null);
+        }
+        wrapper.like("name", keyword)
+                .or().like("id_card", keyword)
+                .or().like("mobile", keyword)
+                .orderByDesc("id");
+        return baseMapper.selectPage(pageParam, wrapper);
+    }
+
+    @Override
+    public BorrowerDetailVO getBorrowerDetailVoById(Long id) {
+
+        //获取借款人信息
+        Borrower borrower = baseMapper.selectById(id);
+
+        //填充基本借款人信息
+        BorrowerDetailVO borrowerDetailVO = new BorrowerDetailVO();
+        BeanUtils.copyProperties(borrower, borrowerDetailVO);
+
+        //婚否
+        borrowerDetailVO.setMarry(borrower.getMarry() ? "是" : "否");
+        //性别
+        borrowerDetailVO.setSex(borrower.getSex() == 1 ? "男" : "女");
+
+        //计算下拉列表选中内容
+        String education = dictService.getNameByParentDictCodeAndValue("education", borrower.getEducation());
+        String industry = dictService.getNameByParentDictCodeAndValue("moneyUse", borrower.getIndustry());
+        String income = dictService.getNameByParentDictCodeAndValue("income", borrower.getIncome());
+        String returnSource = dictService.getNameByParentDictCodeAndValue("returnSource", borrower.getReturnSource());
+        String contactsRelation = dictService.getNameByParentDictCodeAndValue("relation", borrower.getContactsRelation());
+
+        //设置下拉列表选中内容
+        borrowerDetailVO.setEducation(education);
+        borrowerDetailVO.setIndustry(industry);
+        borrowerDetailVO.setIncome(income);
+        borrowerDetailVO.setReturnSource(returnSource);
+        borrowerDetailVO.setContactsRelation(contactsRelation);
+
+        //审批状态
+        String status = BorrowerStatusEnum.getMsgByStatus(borrower.getStatus());
+        borrowerDetailVO.setStatus(status);
+
+        //获取附件VO列表
+        List<BorrowerAttachVO> borrowerAttachVOList = borrowerAttachService.selectBorrowerAttachVOList(id);
+        borrowerDetailVO.setBorrowerAttachVOList(borrowerAttachVOList);
+
+        return borrowerDetailVO;
     }
 }
