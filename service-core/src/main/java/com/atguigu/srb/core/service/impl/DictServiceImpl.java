@@ -99,7 +99,7 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements Di
 
     @Override
     public String getNameByParentDictCodeAndValue(String dictCode, Integer value) {
-        QueryWrapper<Dict> dictQueryWrapper = new QueryWrapper<Dict>();
+        QueryWrapper<Dict> dictQueryWrapper = new QueryWrapper<>();
         dictQueryWrapper.eq("dict_code", dictCode);
         Dict parentDict = baseMapper.selectOne(dictQueryWrapper);
 

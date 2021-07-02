@@ -35,7 +35,7 @@ public class AdminIntegralGradeController {
     @ApiOperation(value = "根据id删除积分等级", notes = "逻辑删除")
     @DeleteMapping("/remove/{id}")
     public R removeById(
-            @ApiParam(value = "数据id", required = true, example = "1")
+            @ApiParam(value = "数据id", required = true, example = "100")
             @PathVariable Long id) {
         boolean result = integralGradeService.removeById(id);
         if (result) {
@@ -64,7 +64,7 @@ public class AdminIntegralGradeController {
     @ApiOperation("根据id获取积分等级")
     @GetMapping("/get/{id}")
     public R getById(
-            @ApiParam(value = "数据id", required = true, example = "1")
+            @ApiParam(value = "数据id", required = true, example = "100")
             @PathVariable Long id) {
         IntegralGrade integralGrade = integralGradeService.getById(id);
         if (integralGrade != null) {
