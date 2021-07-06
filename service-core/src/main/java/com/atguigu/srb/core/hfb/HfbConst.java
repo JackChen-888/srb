@@ -17,7 +17,7 @@ public class HfbConst {
 
 
     /**
-     * //用户绑定汇付宝平台url地址
+     * 用户绑定汇付宝平台url地址
      */
     public static final String USERBIND_URL = "http://localhost:9999/userBind/BindAgreeUserV2";
     /**
