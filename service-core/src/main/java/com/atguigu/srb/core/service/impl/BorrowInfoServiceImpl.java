@@ -17,6 +17,7 @@ import com.atguigu.srb.core.pojo.vo.BorrowerDetailVO;
 import com.atguigu.srb.core.service.BorrowInfoService;
 import com.atguigu.srb.core.service.BorrowerService;
 import com.atguigu.srb.core.service.DictService;
+import com.atguigu.srb.core.service.LendService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
@@ -53,6 +54,9 @@ public class BorrowInfoServiceImpl extends ServiceImpl<BorrowInfoMapper, BorrowI
 
     @Resource
     private BorrowerService borrowerService;
+
+    @Resource
+    private LendService lendService;
 
     @Override
     public BigDecimal getBorrowAmount(Long userId) {
@@ -163,6 +167,7 @@ public class BorrowInfoServiceImpl extends ServiceImpl<BorrowInfoMapper, BorrowI
         //审核通过则创建标的
         if (borrowInfoApprovalVO.getStatus().intValue() == BorrowInfoStatusEnum.CHECK_OK.getStatus().intValue()) {
             //创建标的
+            lendService.createLend(borrowInfoApprovalVO, borrowInfo);
         }
     }
 }

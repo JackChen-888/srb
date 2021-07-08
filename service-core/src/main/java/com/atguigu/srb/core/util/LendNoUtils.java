@@ -15,10 +15,10 @@ public class LendNoUtils {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
         String strDate = dtf.format(time);
 
-        String result = "";
+        StringBuilder result = new StringBuilder();
         Random random = new Random();
         for (int i = 0; i < 3; i++) {
-            result += random.nextInt(10);
+            result.append(random.nextInt(10));
         }
 
         return strDate + result;
