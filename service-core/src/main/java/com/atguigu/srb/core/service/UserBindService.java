@@ -30,4 +30,12 @@ public interface UserBindService extends IService<UserBind> {
      * @param paramMap /
      */
     void notify(Map<String, Object> paramMap);
+
+    /**
+     * 获取投资人的绑定协议号
+     *
+     * @param investUserId /
+     * @return /
+     */
+    String getBindCodeByUserId(Long investUserId);
 }
