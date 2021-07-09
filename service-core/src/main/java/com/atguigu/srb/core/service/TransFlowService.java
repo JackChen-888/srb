@@ -1,5 +1,6 @@
 package com.atguigu.srb.core.service;
 
+import com.atguigu.srb.core.pojo.bo.TransFlowBO;
 import com.atguigu.srb.core.pojo.entity.TransFlow;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -13,4 +14,18 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface TransFlowService extends IService<TransFlow> {
 
+    /**
+     * 保存交易流水业务
+     *
+     * @param transFlowBO /
+     */
+    void saveTransFlow(TransFlowBO transFlowBO);
+
+    /**
+     * 判断流水是否存在
+     *
+     * @param agentBillNo /
+     * @return /
+     */
+    boolean isSaveTransFlow(String agentBillNo);
 }
